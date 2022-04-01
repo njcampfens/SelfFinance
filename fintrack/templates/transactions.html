@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+  <div class="btn-group btn-group-toggle my-3" data-toggle="buttons">
+    <label class="btn btn-secondary active">
+      <a href="{% url 'transactions' %}">
+        <input type="radio" name="options" id="option1" autocomplete="off" checked> Transacciones
+      </a>
+    </label>
+    <label class="btn btn-secondary">
+      <a href="{% url 'new_transaction' %}">
+        <input type="radio" name="options" id="option2" autocomplete="off"> Nueva transacción
+      </a>
+    </label>
+  </div>
+
+  {% if transactions %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Concepto</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Notas</th>
+          <th align="right" scope="col">Cantidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for transaction in transactions %}
+          <tr>
+            <th scope='row'>{{ transaction.id }}</th>
+            <td>{{ transaction.fecha }}</td>
+            <td>{{ transaction.concepto }}</td>
+            <td>{{ transaction.tipo }}</td>
+            <td>{{ transaction.notas }}</td>
+            <td>{{ transaction.cantidad }} €</td>
+          </tr>
+        {% endfor %}
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <th>Total: {{ total }} €</th>
+        </tr>
+      </tbody>
+    </table>
+  {% else %}
+    <p>There are no books in the library.</p>
+  {% endif %}
+
+{% endblock %}
